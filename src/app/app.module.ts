@@ -8,13 +8,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { MenuPage } from '../pages/menu/menu';
+import { ListadoAvesPage } from '../pages/listado-aves/listado-aves';
 import { RestProvider } from '../providers/rest/rest';
+import {AnadirAvesPage} from "../pages/anadir-aves/anadir-aves";
+import {DetalleAvePage} from "../pages/detalle-ave/detalle-ave";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    MenuPage,
+    ListadoAvesPage,
+    AnadirAvesPage,
+    DetalleAvePage
   ],
   imports: [
     BrowserModule,
@@ -25,8 +33,12 @@ import { RestProvider } from '../providers/rest/rest';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
-  ],
+    LoginPage,
+    MenuPage,
+    ListadoAvesPage,
+    AnadirAvesPage,
+    DetalleAvePage
+    ],
   providers: [
     StatusBar,
     SplashScreen,

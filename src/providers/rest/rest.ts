@@ -16,7 +16,8 @@ export class RestProvider {
 
   login(data) {
     return new Promise((resolve, reject) => {
-      this.http.post('http://dev.contanimacion.com/birds/public/login/', JSON.stringify(data))
+      var url='http://dev.contanimacion.com/birds/public/login/?user='+ data.username + '&password=' + data.password;
+      this.http.post(url, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -24,5 +25,28 @@ export class RestProvider {
         });
     });
   }
+  getBirds(data) {
+    return new Promise((resolve, reject) => {
+      var url="http://dev.contanimacion.com/birds/public/getBirds/"+ data
 
+      this.http.get(url)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+  getBirdDetail(data) {
+    return new Promise((resolve, reject) => {
+      var url="http://dev.contanimacion.com/birds/public/getBirdDetails/"+ data
+
+      this.http.get(url)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

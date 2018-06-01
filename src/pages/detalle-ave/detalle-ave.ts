@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import { RestProvider } from '../../providers/rest/rest';
-import {MenuPage} from "../menu/menu";
-import { LoadingController } from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {RestProvider} from "../../providers/rest/rest";
+
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the DetalleAvePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,12 +11,12 @@ import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-detalle-ave',
+  templateUrl: 'detalle-ave.html',
 })
-export class LoginPage {
-  loginData = { username:'', password:'' };
-  data: any;
+export class DetalleAvePage {
+
+  birdDetail: any;
   loading: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider,
@@ -25,28 +24,19 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-  doLogin() {
+    console.log('ionViewDidLoad DetalleAvePage');
     this.presentLoading();
     //this.showLoader();
+    this.restProvider.getBirdDetail(this.navParams.get('id')).then((result) => {
+      // this.loading.dismiss()
+      this.birdDetail = result;
 
-      this.restProvider.login(this.loginData).then((result) => {
-     // this.loading.dismiss()
-      this.data = result;
-
-      localStorage.setItem('token', this.data.id);
-      localStorage.setItem('autenticado', 'true');
-
-      this.navCtrl.push(MenuPage);
-      // this.navCtrl.setRoot(TabsPage);
     }, (err) => {
       //this.loading.dismiss();
       console.log(err.valueOf());
       this.presentToast(err.message);
     });
   }
-
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
@@ -68,4 +58,7 @@ export class LoginPage {
       dismissOnPageChange: true
     }).present();
   }
+
+
+
 }
