@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {RestProvider} from "../../providers/rest/rest";
+import {Detalle} from "../../app/Models/Detalle"
 
 /**
  * Generated class for the DetalleAvePage page.
@@ -16,20 +17,22 @@ import {RestProvider} from "../../providers/rest/rest";
 })
 export class DetalleAvePage {
 
-  birdDetail: any;
-  loading: any;
+  birdDetail: Detalle = new Detalle(0,"","","",0, null);
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider,
               private toastCtrl: ToastController, public loadingCtrl: LoadingController) {
-  }
 
-  ionViewDidLoad() {
+  };
+
+  ionViewWillEnter() {
     console.log('ionViewDidLoad DetalleAvePage');
     this.presentLoading();
     //this.showLoader();
     this.restProvider.getBirdDetail(this.navParams.get('id')).then((result) => {
       // this.loading.dismiss()
-      this.birdDetail = result;
+      this.birdDetail = result[0];
+      console.log(this.birdDetail);
 
     }, (err) => {
       //this.loading.dismiss();

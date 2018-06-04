@@ -14,5 +14,28 @@
 
 
 <ion-content padding>
+  <ion-img width="80" height="80" src={{birdDetail.bird_image}}></ion-img>
+  <ion-item text-wrap>
+    Nombre
+    <p>{{birdDetail.bird_name}}</p>
+  </ion-item>
+  <ion-item text-wrap>
+    Descripción
+    <p>{{birdDetail.bird_description}}</p>
+  </ion-item>
+  <ion-row center>
+    <ion-col text-center>
+      <button ion-button>Añadir Avistamiento</button>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-list>
+    <ion-item *ngFor="let c of birdDetail.sightings_list">
+      <h2>{{c.place}}</h2>
+      <p>long : {{c.long}}</p>
+      <p>lat : {{c.lat}}</p>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
