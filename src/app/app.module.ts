@@ -13,6 +13,7 @@ import { ListadoAvesPage } from '../pages/listado-aves/listado-aves';
 import { RestProvider } from '../providers/rest/rest';
 import {AnadirAvesPage} from "../pages/anadir-aves/anadir-aves";
 import {DetalleAvePage} from "../pages/detalle-ave/detalle-ave";
+import {AnadirAvistamientoPage} from "../pages/anadir-avistamiento/anadir-avistamiento";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {DetalleAvePage} from "../pages/detalle-ave/detalle-ave";
     MenuPage,
     ListadoAvesPage,
     AnadirAvesPage,
-    DetalleAvePage
+    DetalleAvePage,
+    AnadirAvistamientoPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import {DetalleAvePage} from "../pages/detalle-ave/detalle-ave";
     MenuPage,
     ListadoAvesPage,
     AnadirAvesPage,
-    DetalleAvePage
+    DetalleAvePage,
+    AnadirAvistamientoPage
     ],
   providers: [
     StatusBar,

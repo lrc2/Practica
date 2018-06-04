@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {RestProvider} from "../../providers/rest/rest";
 import {Detalle} from "../../app/Models/Detalle"
+import {AnadirAvistamientoPage} from "../anadir-avistamiento/anadir-avistamiento";
 
 /**
  * Generated class for the DetalleAvePage page.
@@ -18,7 +19,8 @@ import {Detalle} from "../../app/Models/Detalle"
 export class DetalleAvePage {
 
   birdDetail: Detalle = new Detalle(0,"","","",0, null);
-
+  loading: any;
+  alert: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider,
               private toastCtrl: ToastController, public loadingCtrl: LoadingController) {
@@ -40,6 +42,10 @@ export class DetalleAvePage {
       this.presentToast(err.message);
     });
   }
+  anadirAvistamiento(){
+    this.navCtrl.push(AnadirAvistamientoPage,{'idAve': this.birdDetail.id} );
+   }
+
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,

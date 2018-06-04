@@ -75,4 +75,29 @@ export class RestProvider {
         });
     });
   }
+
+  addSighting(data) {
+    return new Promise((resolve, reject) => {
+      var url = 'http://dev.contanimacion.com/birds/public/addSighting/?idAve=' + data.idAve + '&place=' +
+        data.place + '&long=' + data.long + '&Lat=' + data.lat;
+      let httpHeaders = new HttpHeaders({
+        'Content-Type' : 'application/json'
+      });
+      let options = {
+        headers: httpHeaders
+      };
+      console.log(url);
+      console.log(data);
+      this.http.post(url, JSON.stringify(data), options)
+        .subscribe(res => {
+          console.log(res);
+          resolve(res);
+        }, (err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  }
+
+
 }
