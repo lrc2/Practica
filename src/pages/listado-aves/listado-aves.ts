@@ -30,14 +30,14 @@ export class ListadoAvesPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListadoAvesPage');
     this.presentLoading();
-    //this.showLoader();
+
     var id =localStorage.getItem('token');
     this.restProvider.getBirds(id).then((result) => {
-      // this.loading.dismiss()
+      this.loading.dismiss()
       this.birds = result;
 
     }, (err) => {
-      //this.loading.dismiss();
+      this.loading.dismiss();
       console.log(err.valueOf());
       this.presentToast(err.message);
     });
@@ -61,10 +61,20 @@ export class ListadoAvesPage {
       content: 'Please wait...',
       duration: 3000,
       dismissOnPageChange: true
-    }).present();
+    });
+    this.loading.present();
   }
 
   editar(id){
     this.navCtrl.push(DetalleAvePage,{'id': id} );
+  }
+  anadirAve(id){
+    this.navCtrl.push(AnadirAvesPage,{'id': id} );
+  }
+  isMine(c){
+    if (c.mine==1){
+      return true;
+    }
+    else return false;
   }
 }

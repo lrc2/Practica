@@ -40,15 +40,16 @@ export class AnadirAvesPage {
   }
   saveData(){
     console.log(this.myForm.value);
+    this.presentLoading();
     this.restProvider.addBird(this.myForm.value).then((result) => {
-      // this.loading.dismiss()
+      this.loading.dismiss()
       this.presentAlert();
       this.alert.onDidDismiss(() =>{
         this.navCtrl.push(ListadoAvesPage);
       })
 
     }, (err) => {
-      //this.loading.dismiss();
+      this.loading.dismiss();
       console.log(err.valueOf());
       this.presentToast(err.message);
     });
@@ -112,7 +113,8 @@ export class AnadirAvesPage {
       content: 'Please wait...',
       duration: 3000,
       dismissOnPageChange: true
-    }).present();
+    });
+    this.loading.present();
   }
 
   presentAlert() {

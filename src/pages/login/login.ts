@@ -29,19 +29,23 @@ export class LoginPage {
   }
   doLogin() {
     this.presentLoading();
-    //this.showLoader();
-
-      this.restProvider.login(this.loginData).then((result) => {
-     // this.loading.dismiss()
+    this.restProvider.login(this.loginData).then((result) => {
+      this.loading.dismiss();
       this.data = result;
+      console.log (this.data);
+      if (this.data.status=='OK'){
+        if (this.data.id != '') {
+          localStorage.setItem('token', this.data.id);
+          localStorage.setItem('autenticado', 'true');
 
-      localStorage.setItem('token', this.data.id);
-      localStorage.setItem('autenticado', 'true');
+          this.navCtrl.push(MenuPage);
+        }
+      } else {
+         this.presentToast(this.data.message);
+      }
 
-      this.navCtrl.push(MenuPage);
-      // this.navCtrl.setRoot(TabsPage);
-    }, (err) => {
-      //this.loading.dismiss();
+     }, (err) => {
+      this.loading.dismiss();
       console.log(err.valueOf());
       this.presentToast(err.message);
     });
@@ -66,6 +70,8 @@ export class LoginPage {
       content: 'Please wait...',
       duration: 3000,
       dismissOnPageChange: true
-    }).present();
+    });
+    this.loading.present();
+
   }
 }

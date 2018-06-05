@@ -36,6 +36,8 @@ export class MenuPage {
     this.navCtrl.push(LoginPage);
   }
   desconectar(){
-    this.navCtrl.push(LoginPage);
+    localStorage.setItem('token', "");
+    localStorage.setItem('autenticado', 'false');
+    this.navCtrl.popToRoot();
   }
 }

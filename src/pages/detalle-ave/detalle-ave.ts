@@ -30,14 +30,14 @@ export class DetalleAvePage {
   ionViewWillEnter() {
     console.log('ionViewDidLoad DetalleAvePage');
     this.presentLoading();
-    //this.showLoader();
+
     this.restProvider.getBirdDetail(this.navParams.get('id')).then((result) => {
-      // this.loading.dismiss()
+      this.loading.dismiss()
       this.birdDetail = result[0];
       console.log(this.birdDetail);
 
     }, (err) => {
-      //this.loading.dismiss();
+      this.loading.dismiss();
       console.log(err.valueOf());
       this.presentToast(err.message);
     });
@@ -65,7 +65,8 @@ export class DetalleAvePage {
       content: 'Please wait...',
       duration: 3000,
       dismissOnPageChange: true
-    }).present();
+    });
+    this.loading.present();
   }
 
 

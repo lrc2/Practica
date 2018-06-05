@@ -20,8 +20,21 @@
         <img src="{{c.bird_image}}">
       </ion-avatar>
       <h2>{{c.bird_name}}</h2>
-      <p>sightings : {{c.bird_sightings}}</p>
+      <ion-row center>
+        <ion-col>sightings :
+        </ion-col>
+        <ion-col><div [style.background-color]="isMine(c) ? 'green': 'red'">{{c.bird_sightings}}</div>
+        </ion-col>
+      </ion-row>
       <button ion-button outline item-end (click)="editar(c.id)">View</button>
     </ion-item>
   </ion-list>
+  <p></p>
+  <ion-row center>
+    <ion-col text-center>
+      <button ion-button align-self-center (click)="anadirAve()">Añadir Ave</button>
+    </ion-col>
+  </ion-row>
+  <p></p>
+
 </ion-content>

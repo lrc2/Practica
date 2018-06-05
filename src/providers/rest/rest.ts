@@ -18,6 +18,12 @@ export class RestProvider {
   login(data) {
     return new Promise((resolve, reject) => {
       var url = 'http://dev.contanimacion.com/birds/public/login/?user=' + data.username + '&password=' + data.password;
+      let httpHeaders = new HttpHeaders({
+        'Content-Type' : 'application/json'
+      });
+      let options = {
+        headers: httpHeaders
+      };
       this.http.post(url, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
@@ -55,8 +61,11 @@ export class RestProvider {
 
   addBird(data) {
     return new Promise((resolve, reject) => {
-      var url = 'http://dev.contanimacion.com/birds/public/addBird/?idUser=' + data.idUser + '&bird_name=' +
-        data.bird_name + '&bird_description=' + data.bird_description;
+      var url = 'http://dev.contanimacion.com/birds/public/addBird/';
+
+      // ?idUser=' + data.idUser + '&bird_name=' +
+      // data.bird_name + '&bird_description=' + data.bird_description;
+
       let httpHeaders = new HttpHeaders({
         'Content-Type' : 'application/json'
       });
@@ -78,8 +87,11 @@ export class RestProvider {
 
   addSighting(data) {
     return new Promise((resolve, reject) => {
-      var url = 'http://dev.contanimacion.com/birds/public/addSighting/?idAve=' + data.idAve + '&place=' +
-        data.place + '&long=' + data.long + '&Lat=' + data.lat;
+      var url = 'http://dev.contanimacion.com/birds/public/addSighting/';
+
+      //?idAve=' + data.idAve + '&place=' +
+      // data.place + '&long=' + data.long + '&Lat=' + data.lat;
+
       let httpHeaders = new HttpHeaders({
         'Content-Type' : 'application/json'
       });
