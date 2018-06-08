@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl} from '@angular/forms';
 import {ListadoAvesPage} from "../listado-aves/listado-aves";
 import { RestProvider } from '../../providers/rest/rest';
+import {Geolocation} from '@ionic-native/geolocation'
+
 /**
  * Generated class for the AnadirAvesPage page.
  *
@@ -23,12 +25,12 @@ export class AnadirAvesPage {
   loading: any;
   alert: any;
   visto: boolean= false ;
-  lat: number;
-  long: number;
+  lat: any;
+  long: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,
     public restProvider: RestProvider, private toastCtrl: ToastController, public loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController, public geo:Geolocation) {
 
     this.id =localStorage.getItem('token');
     console.log(this.id);
@@ -41,6 +43,11 @@ export class AnadirAvesPage {
 
   }
   saveData(){
+    if (this.visto) {
+      this.myForm.value.lat = this.lat;
+      this.myForm.value.long = this.long;
+    }
+
     console.log(this.myForm.value);
     this.presentLoading();
     this.restProvider.addBird(this.myForm.value).then((result) => {
@@ -70,36 +77,27 @@ export class AnadirAvesPage {
     if (this.visto){
       this.visto=false;
       this.myForm.removeControl('place');
-      this.myForm.removeControl('long');
-      this.myForm.removeControl('lat');
+
     } else {
-      if (navigator.geolocation) {
 
-        navigator.geolocation.getCurrentPosition(this.getPosition, function error(err) {
-          console.warn('ERROR(' + err.code + '): ' + err.message);
-        });
-        }
+      var options = {
+        enableHighAccuracy: true
+      };
 
-          this.visto = true;
-          this.myForm.addControl('place', new FormControl('', Validators.compose([
-            Validators.required])));
+      this.geo.getCurrentPosition(options).then(pos =>{
+        this.lat=pos.coords.latitude;
+        this.long=pos.coords.longitude;
 
-          this.myForm.addControl('long', new FormControl(this.long, Validators.compose([
-            Validators.required])));
-          this.myForm.addControl('lat', new FormControl(this.lat, Validators.compose([
-            Validators.required])));
+      }).catch(err => console.log(err));
 
-        }
-
-      }
-
-  getPosition (position){
-    console.log(this.myForm.controls);
-    this.myForm.controls['lat'].setValue(position.coords.latitude);
-    this.myForm.controls['long'].setValue(position.coords.longitude);
+      this.visto = true;
+      this.myForm.addControl('place', new FormControl('', Validators.compose([
+        Validators.required])));
+    }
 
   }
-  presentToast(msg){
+
+   presentToast(msg){
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,

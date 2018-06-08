@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RestProvider} from "../../providers/rest/rest";
-import { FormControl} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {ListadoAvesPage} from "../listado-aves/listado-aves";
 import {DetalleAvePage} from "../detalle-ave/detalle-ave";
+import {Geolocation} from '@ionic-native/geolocation';
 
 /**
  * Generated class for the AnadirAvistamientoPage page.
@@ -23,10 +24,12 @@ export class AnadirAvistamientoPage {
   idAve: String;
   loading: any;
   alert: any;
+  lat: any;
+  long: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,
               public restProvider: RestProvider, private toastCtrl: ToastController, public loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,public geo:Geolocation) {
 
     this.idAve = this.navParams.get('idAve');
     this.myForm = this.createMyForm();
@@ -34,18 +37,24 @@ export class AnadirAvistamientoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnadirAvistamientoPage');
+
+    var options = {
+      enableHighAccuracy: true
+    };
+
+    this.geo.getCurrentPosition(options).then(pos =>{
+      this.lat=pos.coords.latitude;
+      this.long=pos.coords.longitude;
+
+    }).catch(err => console.log(err));
+
   }
 
   saveData(){
-    var lat:number;
-    var long:number;
+    this.myForm.value.lat = this.lat;
+    this.myForm.value.long = this.long;
 
     console.log(this.myForm.value);
-    navigator.geolocation.getCurrentPosition(function (position) {
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-      console.log(lat);
-      console.log(long);
 
       this.presentLoading();
       this.restProvider.addSighting(this.myForm.value).then((result) => {
@@ -60,7 +69,6 @@ export class AnadirAvistamientoPage {
         console.log(err.valueOf());
         this.presentToast(err.message);
       });
-    });
   }
 
   private createMyForm(){
