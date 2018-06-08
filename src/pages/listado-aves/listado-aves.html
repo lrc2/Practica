@@ -6,8 +6,15 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>listadoAves</ion-title>
+  <ion-navbar hideBackButton="true" >
+    <ion-buttons start>
+      <button ion-button (click)="navegateMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>
+      Listado de Aves
+    </ion-title>
   </ion-navbar>
 
 </ion-header>

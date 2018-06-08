@@ -23,6 +23,8 @@ export class AnadirAvesPage {
   loading: any;
   alert: any;
   visto: boolean= false ;
+  lat: number;
+  long: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,
     public restProvider: RestProvider, private toastCtrl: ToastController, public loadingCtrl: LoadingController,
@@ -64,8 +66,6 @@ export class AnadirAvesPage {
   }
 
   updateVisto(){
-    var lat;
-    var long;
 
     if (this.visto){
       this.visto=false;
@@ -74,27 +74,32 @@ export class AnadirAvesPage {
       this.myForm.removeControl('lat');
     } else {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          lat = position.coords.latitude;
-          long = position.coords.longitude;
-          console.log(lat);
-          console.log(long);
 
+        navigator.geolocation.getCurrentPosition(this.getPosition, function error(err) {
+          console.warn('ERROR(' + err.code + '): ' + err.message);
         });
-        this.visto=true;
-        this.myForm.addControl('place', new FormControl('', Validators.compose([
-          Validators.required])));
-        this.myForm.addControl('long', new FormControl(long, Validators.compose([
-          Validators.required])));
-        this.myForm.addControl('lat', new FormControl(lat, Validators.compose([
-          Validators.required])));
+        }
+
+          this.visto = true;
+          this.myForm.addControl('place', new FormControl('', Validators.compose([
+            Validators.required])));
+
+          this.myForm.addControl('long', new FormControl(this.long, Validators.compose([
+            Validators.required])));
+          this.myForm.addControl('lat', new FormControl(this.lat, Validators.compose([
+            Validators.required])));
+
+        }
+
       }
 
-
-    }
+  getPosition (position){
+    console.log(this.myForm.controls);
+    this.myForm.controls['lat'].setValue(position.coords.latitude);
+    this.myForm.controls['long'].setValue(position.coords.longitude);
 
   }
-  presentToast(msg) {
+  presentToast(msg){
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,
@@ -108,7 +113,7 @@ export class AnadirAvesPage {
     toast.present();
   }
 
-  presentLoading() {
+  presentLoading(){
     this.loading=this.loadingCtrl.create({
       content: 'Please wait...',
       duration: 3000,

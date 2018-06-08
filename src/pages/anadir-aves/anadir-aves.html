@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>anadirAves</ion-title>
+    <ion-title text-center>anadirAves</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,9 +17,9 @@
 
     <form [formGroup]="myForm" (ngSubmit)="saveData()">
       <ion-list>
-        <ion-item>
-          <ion-label stacked>idUser:</ion-label>
-          <ion-input formControlName="idUser" type="text" placeholder="idUser"></ion-input>
+        <ion-item hidden>
+          <ion-label stacked hidden >idUser:</ion-label>
+          <ion-input hidden formControlName="idUser" type="text" placeholder="idUser"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked>Nombre:</ion-label>

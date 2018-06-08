@@ -40,4 +40,7 @@ export class MenuPage {
     localStorage.setItem('autenticado', 'false');
     this.navCtrl.popToRoot();
   }
+  navegateMenu(){
+    this.navCtrl.push(MenuPage);
+  }
 }

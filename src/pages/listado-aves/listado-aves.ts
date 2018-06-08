@@ -77,4 +77,7 @@ export class ListadoAvesPage {
     }
     else return false;
   }
+  navegateMenu(){
+    this.navCtrl.push(MenuPage);
+  }
 }

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title text-center>login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,7 +18,7 @@
   <p></p>
   <ion-row center>
     <ion-col text-center>
-      <ion-img style="width: 100px; height: 100px;" src="../../../assets/icon/if_twitter_56298.png"></ion-img>
+      <ion-img style="width: 100px; height: 100px;" src="./assets/icon/if_twitter_56298.png"></ion-img>
     </ion-col>
   </ion-row>
 
@@ -26,8 +26,8 @@
   <h2>Please, Login</h2>
   <form (submit)="doLogin()">
     <ion-item>
-      <ion-label stacked>Usuario</ion-label>
-      <ion-input [(ngModel)]="loginData.username" name="username" type="text" placeholder="Usuario" ></ion-input>
+      <ion-label stacked>email</ion-label>
+      <ion-input [(ngModel)]="loginData.username" name="username" type="text" placeholder="email" ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Password</ion-label>

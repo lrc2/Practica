@@ -46,21 +46,20 @@ export class AnadirAvistamientoPage {
       long = position.coords.longitude;
       console.log(lat);
       console.log(long);
-        });
 
+      this.presentLoading();
+      this.restProvider.addSighting(this.myForm.value).then((result) => {
+        this.loading.dismiss()
+        this.presentAlert();
+        this.alert.onDidDismiss(() => {
+          this.navCtrl.pop();
+        })
 
-    this.presentLoading();
-    this.restProvider.addSighting(this.myForm.value).then((result) => {
-      this.loading.dismiss()
-      this.presentAlert();
-      this.alert.onDidDismiss(() =>{
-        this.navCtrl.pop();
-      })
-
-    }, (err) => {
-      this.loading.dismiss();
-      console.log(err.valueOf());
-      this.presentToast(err.message);
+      }, (err) => {
+        this.loading.dismiss();
+        console.log(err.valueOf());
+        this.presentToast(err.message);
+      });
     });
   }
 

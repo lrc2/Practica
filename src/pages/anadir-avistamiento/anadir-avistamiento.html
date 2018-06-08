@@ -16,9 +16,9 @@
 <ion-content padding>
   <form [formGroup]="myForm" (ngSubmit)="saveData()">
     <ion-list>
-      <ion-item>
-        <ion-label stacked>idAve:</ion-label>
-        <ion-input formControlName="idAve" type="text" placeholder="idAve"></ion-input>
+      <ion-item hidden>
+        <ion-label hidden stacked>idAve:</ion-label>
+        <ion-input hidden formControlName="idAve" type="text" placeholder="idAve"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label stacked>Lugar:</ion-label>
